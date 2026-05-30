@@ -11,7 +11,7 @@ def color_filter(image):
     image = cv2.GaussianBlur(image,(5,5),0)   
 	#convert to HLS to mask based on HLS
     hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS) #===> RGB to BGR
-    lower = np.array([60,35,30])     #[60,35,30]
+    lower = np.array([60,35,30])     #[60,35,30] red color of rubber-tape 
     upper = np.array([255,255,255])  #[255,255,255]   
     redtapemask = cv2.inRange(hls, lower, upper)    
     masked = cv2.bitwise_and(image, image, mask = redtapemask)
@@ -34,7 +34,7 @@ def roi(img):    #MENENTUKAN TITIK ABCD SEBAGAI TRAPESIUM ROI
     #define a numpy array with the dimensions of img, but comprised of zeros
     mask = np.zeros_like(img)
 
-    #Uses 3 channels or 1 channel for color depending on input image
+    #Uses 3 channels or 1 channel for color, depending on the input image
     if len(img.shape) > 2:
         channel_count = img.shape[2]
         ignore_mask_color = (255,) * channel_count
@@ -89,7 +89,7 @@ def draw_lines(img, lines, thickness=5):
 		    #else: None		
                     
     #We use slicing operators and np.mean() to find the averages of the 30 previous frames
-    #This makes the lines more stable, and less likely to shift rapidly
+    #This makes the lines more stable and less likely to shift rapidly
     leftavgSlope = np.mean(leftSlope[-30:])
     leftavgIntercept = np.mean(leftIntercept[-30:])
     
@@ -187,7 +187,7 @@ def processImage(image):
     weighted_img = cv2.addWeighted(myline, 1, frame, 0.8, 0)
     return weighted_img #filtering #weighted_img #canny
 
-path0 = "c:\\Users\\HP\\Documents\\2025\\ELCVIA draft\\Code\\"
+path0 = "c:\\Users\\HP\\Documents\\2025\\ELCVIA_draft\\Code\\" #location of video_data
 namafile = "vid_mevi_1a" #WIN_4 kameraroof  CIPALI  PALIKANCI  PEJAGAN PML3 jpro7
 videoFile = namafile+".mp4" #size 1280x720 setengahnya 640x360 
 cap = cv2.VideoCapture(path0+videoFile)
@@ -221,7 +221,7 @@ ret, frame = cap.read()
 #M = int(ratio*M)
 #N = int(ratio*N)
 
-videoPathToSave = "c:\\Users\\HP\\Documents\\2025\\ELCVIA draft\\Code\\"
+videoPathToSave = "c:\\Users\\HP\\Documents\\2025\\ELCVIA_draft\\Code\\" #location of the output video stored
 #if saveVideo == True:
 #    out = cv2.VideoWriter(videoPathToSave+"mevi1.avi",cv2.VideoWriter_fourcc('M','J','P','G'), 30, (N,M))
 	
@@ -268,7 +268,7 @@ while cap.isOpened(): #cap
         #out.write(frame)
     #    print("ok")
     #frameIdx = frameIdx + 1
-    #ser.write(kirimdata+'\n')
+    #ser.write(kirimdata+'\n')	#send steering angle to serial port
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 

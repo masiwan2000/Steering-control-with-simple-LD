@@ -12,13 +12,14 @@ LD_KST.py with Dataset/KST.
 
 Try changing the ROI and filter threshold (white and yellow) to use with Dataset/TOL.
 
-<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/393ea039102be8b059f022d4297bdde0084b6b4e/sudut_kemudi01.jpg" alt="Alt Text" width="300" height="200">
+<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/d8996af87d6adaa707e9d20204c543742a36c6dd/final%20result%20LD.jpg" alt="Alt Text" width="300" height="200">
+
 Run LD-Steering1.py with Dataset_Mevi.
 
-<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/393ea039102be8b059f022d4297bdde0084b6b4e/sudut_kemudi01.jpg" alt="Alt Text" width="300" height="200">
+<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/5f5fd4c658694c82595d449e82e5d3d1b39d93c8/Output%20Final.png" alt="Alt Text" width="300" height="200">
 
 This is a simulation video of the result of the project.
 
-<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/87ff1539701dcff6b0fc3056e8337b445d63609f/20240816_101508%20-%20frame%20at%200m21s.jpg" alt="Alt Text" width="300" height="200">
+<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/5f5fd4c658694c82595d449e82e5d3d1b39d93c8/Output%20Final.png" alt="Alt Text" width="300" height="200">
 
 [Click Here](https://drive.google.com/file/d/15p_wf_BUDU-3fGUtM39hI2DAot_YjYVa/view?usp=sharing)

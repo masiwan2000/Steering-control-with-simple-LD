@@ -2,7 +2,14 @@ import os
 import numpy as np
 import math
 import cv2
+import tkinter as tk
+from tkinter import filedialog
 #import serial
+
+root = tk.Tk()
+root.withdraw()
+file_path = filedialog.askopenfilename()
+citra = file_path
 
 #Masking Unnecessary Colors
 def color_filter(image):
@@ -151,12 +158,6 @@ def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     
     return line_img
 
-def linedetect(img):
-    return hough_lines(img, 1, np.pi/180, 10, 20, 100) #10, 20, 100
-
-#hough_img = list(map(linedetect, canny_img))
-#display_images(hough_img)  #cek point
-
 #Overlaying the Image and the Lines
 def weighted_img(img, initial_img, α=0.8, β=1., λ=0.):
     """
@@ -165,19 +166,6 @@ def weighted_img(img, initial_img, α=0.8, β=1., λ=0.):
     """
     return cv2.addWeighted(initial_img, α, img, β, λ)
 
-def weightSum(input_set):
-    img = list(input_set)
-    return cv2.addWeighted(img[0], 1, img[1], 0.8, 0)
-
-#result_img = list(map(weightSum, zip(hough_img, imageList)))
-#display_images(result_img)  #cek point
-
-def sharpen(img):
-	filter = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
-	#filter = np.array([[0,0,-1,0,0],[0,-1,-2,-1,0],[-1,-2,16,-2,-1],[0,-1,-2,-1,0],[0,0,-1,0,0]])	#Mexican hat filter
-	filter = np.array([[3, -2, -3], [-4, 8, -6], [5, -1, -0]]) #your own
-	return cv2.filter2D(img,-1,filter)
-
 #Applying it to Video
 def processImage(image):
     interest = roi(image)
@@ -185,60 +173,27 @@ def processImage(image):
     weighted_img = cv2.addWeighted(myline, 1, frame, 0.8, 0)
     return weighted_img #filtering #weighted_img #canny
 
-path0 = "c:\\Users\\HP\\Documents\\2025\\ELCVIA_draft\\Code\\" #location of video_data
-namafile = "vid_mevi_1a" #WIN_4 kameraroof  CIPALI  PALIKANCI  PEJAGAN PML3 jpro7
-videoFile = namafile+".mp4" #size 1280x720 setengahnya 640x360 
-cap = cv2.VideoCapture(path0+videoFile)
-video_output = "VIDEO OUTPUT" #+namaJendela
-cv2.namedWindow(video_output,0) #0 size full, 1 size original
+output = "OUTPUT" #+namaJendela
+cv2.namedWindow(output,0) #0 size full, 1 size original
 #cv2.namedWindow('out video '+namafile,1) #0 size full, 1 size original
-cv2.resizeWindow(video_output,640,480) #Jendela viewnya saja yg di resize
-video_input = "VIDEO INPUT "
-cv2.namedWindow(video_input,0)
-cv2.resizeWindow(video_input,640,480) #Jendela viewnya saja yg di resize
-#cap = cv2.VideoCapture(0)c
+cv2.resizeWindow(output,640,480) #Jendela viewnya saja yg di resize
+input = "INPUT "
+cv2.namedWindow(input,0)
+cv2.resizeWindow(input,640,480) #Jendela viewnya saja yg di resize
 
-#def classify(img, ratio):
-#    M = img.shape[0]
-#    N = img.shape[1]
-#    img = cv2.resize(img, (int(ratio*N),int(ratio*M)),interpolation = cv2.INTER_AREA)
-#    return img
-os.system("cls")
-
-saveVideo = True  #False
-frameIdx = 0
-ratio = 1 #0.5
-
-cap = cv2.VideoCapture(path0+videoFile)
-totalFrames = cap.get(cv2.CAP_PROP_FRAME_COUNT)
-
-ret, frame = cap.read()
-#M = frame.shape[0]
-#N = frame.shape[1]
-
-#M = int(ratio*M)
-#N = int(ratio*N)
-
-videoPathToSave = "c:\\Users\\HP\\Documents\\2025\\ELCVIA_draft\\Code\\" #location of the output video stored
-#if saveVideo == True:
-#    out = cv2.VideoWriter(videoPathToSave+"mevi1.avi",cv2.VideoWriter_fourcc('M','J','P','G'), 30, (N,M))
-	
-frameIdxMax = 3000 #2900
 #ser=serial.Serial("COM3",115200)
 #ser.reset_input_buffer()
 
-while cap.isOpened(): #cap
-    ret, frame = cap.read()
+while True: #cap.isOpened(): #cap
+    cap = cv2.imread(citra)
+	frame = cap
+	#ret, frame = cap.read()
     #frame = cv2.resize(frame,(640,480))
-    cv2.imshow(video_input, frame)
+    cv2.imshow(input, frame)
     filtering = color_filter(frame)
     edge = cv2.Canny(grayscale(filtering), 50, 120)
     try:
         frame = processImage(edge)   
-        #interest = roi(edge)
-        #myline = hough_lines(interest, 1, np.pi/180, 10, 37, 6)
-        #frame = cv2.addWeighted(myline, 1, frame, 0.8, 0) #weighted_img
-        #frame = cv2.resize(frame,(640,480))
     except ValueError:
         pass
     #frame = filtering
@@ -253,19 +208,9 @@ while cap.isOpened(): #cap
     cy = 0.65
     dx = 0.25
     dy = cy
-    #shape = np.array([[int(ax*x), int(ay*y)], [int(bx*x), int(by*y)], [int(cx*x), int(cy*y)], [int(dx*x), int(dy*y)]]) #0.51*x 0.4*x
-    #frame = cv2.polylines(frame,[shape],True,(0,0,255),2)
-    #frame = cv2.line(frame, ((640+20),0), ((640+20),720),[0,255,255], 1) #x tengah = 640 (640-64)
-    #frame = cv2.line(frame, (0,360), (1280,360),[0,255,255], 1)
-    #cv2.resizeWindow(video_output,1280,720) #1920,1080 1280,720
     frame = cv2.line(frame, (int(x/2),0), (int(x/2),y),[0,255,255], 2)
     frame = cv2.line(frame, (0,int(y/2)), (x,int(y/2)),[0,255,255], 2)
-    cv2.imshow(video_output,frame) #frame
-    #print("Frame index: %d  of %d [%3.2f %%]" %(frameIdx, frameIdxMax,(float(frameIdx/frameIdxMax*100))))
-    #if saveVideo == True:
-        #out.write(frame)
-    #    print("ok")
-    #frameIdx = frameIdx + 1
+    cv2.imshow(output,frame) #frame
     #ser.write(kirimdata+'\n')	#send steering angle to serial port
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

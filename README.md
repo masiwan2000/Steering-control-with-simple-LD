@@ -9,4 +9,6 @@ LD_KST.py with Dataset/KST.
 Try changing the ROI and filter threshold (white and yellow) to use with Dataset/TOL.
 Run LD-Steering1.py with Dataset_Mevi.
 
+<img src="https://github.com/masiwan2000/Steering-control-with-simple-LD/blob/87ff1539701dcff6b0fc3056e8337b445d63609f/20240816_101508%20-%20frame%20at%200m21s.jpg" alt="Alt Text" width="300" height="200">
+
 This is a simulation video of the result of the project. [Here](https://drive.google.com/file/d/15p_wf_BUDU-3fGUtM39hI2DAot_YjYVa/view?usp=sharing)

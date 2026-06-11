@@ -1,5 +1,0 @@
-This is the link to the video used:
-https://drive.google.com/file/d/17gAA-VWMvEkptIVKONK_TnH8OSpwKn_q/view?usp=sharing
-Video of data: vid_mevi_1a.mp4
-Video of steering control: steering_act.mp4
-https://drive.google.com/file/d/15p_wf_BUDU-3fGUtM39hI2DAot_YjYVa/view?usp=sharing
